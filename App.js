@@ -44,9 +44,9 @@ export default function App() {
       <Text style={styles.title}>Ma bibliothèque</Text>
 
       <View style={styles.search}>
-        <TextInput style={styles.input} value="Recercher un livre"
+        <TextInput style={styles.input} value="Rechercher un livre"
          onChangeText={(text) => {setBooks(text)}} />
-        <Button title="OK" color="pink" onPress={searchTitle}/>
+        <Button title="OK" color="#008A9A" onPress={searchTitle}/>
       </View>
 
       <ScrollView style={styles.book}>
@@ -66,15 +66,15 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 40,
-    marginTop: 60,
+    marginTop: 25,
     marginBottom: 20,
-    backgroundColor: 'pink',
+    color: '#fff',
+    backgroundColor: '#008A9A',
     paddingHorizontal: 50,
     paddingVertical: 20
   },
   search: {
     flexDirection: 'row',
-    marginBottom: 10,
   },
   input: {
     borderWidth: 1,
@@ -83,11 +83,12 @@ const styles = StyleSheet.create({
   },
   bookTitle: {
     fontSize: 21,
-    marginTop: 10,
+    marginTop: 20,
     marginHorizontal: 20
   },
   bookDescription: {
     marginHorizontal: 20,
-    fontSize: 15
+    fontSize: 15,
+    color: '#383838'
   }
 });
