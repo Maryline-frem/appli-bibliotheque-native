@@ -6,37 +6,34 @@ import { AntDesign } from '@expo/vector-icons';
 export default function App() {
 
   const [books, setBooks] = useState([
-    {title: "Harry Potter à l'école des sorciers",
-    description: "Orphelin, le jeune Harry Potter peut enfin quitter ses tyranniques oncle et tante Dursley lorsqu'un curieux messager lui révèle qu'il est un sorcier."},
-    {title: "Harry Potter et l'Ordre du Phénix",
-    description: "Alors qu'il entame sa cinquième année d'études à Poudlard, Harry Potter découvre que la communauté des sorciers ne semble pas croire au retour de Voldemort."},
-    {title: "Martine à l'école",
-    description: "Les vacances sont terminées. La première semaine de classe de Martine est racontée au jour le jour, ainsi que ce qu'elle y apprend."},
-    {title: "Martine à la foire",
-    description: "Chaque année, là où habite Martine, la foire s’installe sur la place du marché. Le manège tourne, les chevaux de bois montent et descendent, crinière au vent."},
-    {title: "Martine à la ferme",
-    description: "Martine rend visite à la ferme de son cousin Jean-Pierre. C'est l'occasion pour elle de découvrir tous ses animaux : les poussins, les lapins, le petit mouton, les oies, le veau et le poulain."},
-    {title: "Cinquante nuances de Grey",
-    description: "Étudiante en littérature anglaise, Anastasia Steele se rend à Seattle dans les bureaux de Christian Grey, jeune homme d'affaires déjà à la tête d'un empire de télécom. "},
-    {title: "Cinquante nuances plus sombres",
-    description: "Lorsque Christian Grey blessé tente de séduire et de reconquérir Ana Steele devenue méfiante, elle exige un nouvel accord avant de lui offrir une seconde chance."},
-    {title: "Cinquante Nuances plus claires",
-    description: "Pensant avoir laissé derrière eux les ombres du passé, les jeunes mariés Christian et Ana profitent pleinement de leur relation tortueuse et partagent une vie de luxe."}
+    {title: "Harry Potter à l'école des sorciers", description: "Orphelin, le jeune Harry Potter peut enfin quitter ses tyranniques oncle et tante Dursley lorsqu'un curieux messager lui révèle qu'il est un sorcier."},
+    {title: "Harry Potter et l'Ordre du Phénix", description: "Alors qu'il entame sa cinquième année d'études à Poudlard, Harry Potter découvre que la communauté des sorciers ne semble pas croire au retour de Voldemort."},
+    {title: "Martine à l'école", description: "Les vacances sont terminées. La première semaine de classe de Martine est racontée au jour le jour, ainsi que ce qu'elle y apprend."},
+    {title: "Martine à la foire", description: "Chaque année, là où habite Martine, la foire s’installe sur la place du marché. Le manège tourne, les chevaux de bois montent et descendent, crinière au vent."},
+    {title: "Martine à la ferme", description: "Martine rend visite à la ferme de son cousin Jean-Pierre. C'est l'occasion pour elle de découvrir tous ses animaux : les poussins, les lapins, le petit mouton, les oies, le veau et le poulain."},
+    {title: "Cinquante nuances de Grey", description: "Étudiante en littérature anglaise, Anastasia Steele se rend à Seattle dans les bureaux de Christian Grey, jeune homme d'affaires déjà à la tête d'un empire de télécom. "},
+    {title: "Cinquante nuances plus sombres", description: "Lorsque Christian Grey blessé tente de séduire et de reconquérir Ana Steele devenue méfiante, elle exige un nouvel accord avant de lui offrir une seconde chance."},
+    {title: "Cinquante Nuances plus claires", description: "Pensant avoir laissé derrière eux les ombres du passé, les jeunes mariés Christian et Ana profitent pleinement de leur relation tortueuse et partagent une vie de luxe."}
   ])
 
+  const [booksFiltered, setBooksFiltered] = useState([""])
+
   const booksJSX = books.map(book => {
-    return <View>
-      
-      <Text style={styles.bookTitle}>
-        <AntDesign name="book" size={24} color="black" />
-        {book.title}
+    return (
+      <View>
+        <Text style={styles.bookTitle}>
+          <AntDesign name="book" size={24} color="black" />
+          {book.title}
         </Text>
-      <Text style={styles.bookDescription}>{book.description} </Text>
-    </View>
+        <Text style={styles.bookDescription}>{book.description} </Text>
+      </View>
+    )
   })
 
-  function searchTitle() {
-    console.log('recherche');
+  function searchBook() {
+    console.log(booksFiltered.includes(books));
+    // setBooks(books);
+    // return <Text></Text>
   }
 
   return (
@@ -44,9 +41,9 @@ export default function App() {
       <Text style={styles.title}>Ma bibliothèque</Text>
 
       <View style={styles.search}>
-        <TextInput style={styles.input} value="Rechercher un livre"
-         onChangeText={(text) => {setBooks(text)}} />
-        <Button title="OK" color="#008A9A" onPress={searchTitle}/>
+        <TextInput style={styles.input} placeholder="Rechercher un livre" value={books}
+         onChangeText={(text) => {setBooksFiltered(text)}} />
+        <Button title="OK" color="#008A9A" onPress={searchBook}/>
       </View>
 
       <ScrollView style={styles.book}>
