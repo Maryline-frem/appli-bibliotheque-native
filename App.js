@@ -16,9 +16,12 @@ export default function App() {
     {title: "Cinquante Nuances plus claires", description: "Pensant avoir laissé derrière eux les ombres du passé, les jeunes mariés Christian et Ana profitent pleinement de leur relation tortueuse et partagent une vie de luxe."}
   ])
 
-  const [booksFiltered, setBooksFiltered] = useState([""])
+  const [booksFiltered, setBooksFiltered] = useState(books)
+  console.log(booksFiltered);
 
-  const booksJSX = books.map(book => {
+  const [inputValue, setInputValue] = useState("")
+
+  const booksJSX = booksFiltered.map(book => {
     return (
       <View>
         <Text style={styles.bookTitle}>
@@ -30,10 +33,8 @@ export default function App() {
     )
   })
 
-  function searchBook() {
-    console.log(booksFiltered.includes(books));
-    // setBooks(books);
-    // return <Text></Text>
+  const searchBook = () => {
+    setBooksFiltered(books.filter(res => res.title.toLowerCase().includes(inputValue.toLowerCase())));
   }
 
   return (
@@ -41,8 +42,8 @@ export default function App() {
       <Text style={styles.title}>Ma bibliothèque</Text>
 
       <View style={styles.search}>
-        <TextInput style={styles.input} placeholder="Rechercher un livre" value={books}
-         onChangeText={(text) => {setBooksFiltered(text)}} />
+        <TextInput style={styles.input} placeholder="Rechercher un livre"
+         onChangeText={(text) => {setInputValue(text)}} />
         <Button title="OK" color="#008A9A" onPress={searchBook}/>
       </View>
 
