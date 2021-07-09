@@ -3,31 +3,33 @@ import { View, StyleSheet, Image, Button, Text } from 'react-native'
 
 export default function SplashScreen({navigation}) {
 
-    function goBookApp(start) {
-        navigation.reset({
-          index: 0,
-          routes: [
-            {
-              name: 'Library',
-            }
-          ]
-        })
-      }
-    return (
-        <View style={styles.container}>
-            <Image
-            style={styles.img}
-            source={require('../assets/img/logo.png')}
+  function goBookApp(start) {
+    navigation.reset({
+      index: 0,
+      routes: [
+        {
+          name: 'Mes livres',
+        }
+      ]
+    })
+  }
+
+  return (
+    <View style={styles.container}>
+      <Image
+        style={styles.img}
+        source={require('../assets/img/logo.png')}
+      />
+      <Text style={styles.title}>Book'App</Text>
+      <View style={styles.button}>
+        <Button
+          title="Commencer"
+          color="#fff"
+          onPress={() => goBookApp('Mes livres')}
         />
-            <Text style={styles.title}>Book'App</Text>
-            <Button
-                style={styles.button}
-                title="Commencer"
-                color="#008A9A"
-                onPress={() => goBookApp('Library')}
-            />
-        </View>
-    )
+      </View>
+    </View>
+  )
 }
 
 const styles = StyleSheet.create({
@@ -45,6 +47,9 @@ const styles = StyleSheet.create({
         fontSize: 50,
     },
     button: {
-        padding: 20
+        marginTop: 70,
+        padding: 5,
+        backgroundColor: '#0CACB7',
+        borderRadius: 8,
     }
 })

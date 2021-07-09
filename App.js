@@ -6,10 +6,15 @@ import BookScreen from './screens/BookScreen';
 import LibraryScreen from './screens/LibraryScreen';
 import SplashScreen from './screens/SplashScreen';
 
+import { useFonts } from 'expo-font';
 
 export default function App() {
 
   const Stack = createStackNavigator();
+
+  let [fontsLoaded] = useFonts({
+    'DancingScript': require('./assets/fonts/DancingScript-VariableFont_wght.ttf')
+  })
 
   return (
     <NavigationContainer>
@@ -20,11 +25,13 @@ export default function App() {
         headerTintColor: '#fff',
         headerTitleStyle: {
           fontWeight: 'bold',
+          fontSize: 36,
+          fontFamily: 'DancingScript',
         },
       }}>
         <Stack.Screen name="Splash" component={SplashScreen} options={{headerShown:false}} />
-        <Stack.Screen name="Library" component={LibraryScreen} />
-        <Stack.Screen name="Book" component={BookScreen} />
+        <Stack.Screen name="Mes livres" component={LibraryScreen} />
+        <Stack.Screen name="Détails du livre" component={BookScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
