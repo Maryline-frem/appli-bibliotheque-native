@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { FlatList, ScrollView, StyleSheet, Text, View, TextInput, Button } from 'react-native';
-import { ListItem, SearchBar } from 'react-native-elements';
+import { FlatList, StyleSheet, Text, View, TextInput, Button } from 'react-native';
+import { ListItem } from 'react-native-elements';
 import { AntDesign } from '@expo/vector-icons';
 import axios from 'axios';
 import { useFonts } from 'expo-font';
@@ -14,44 +14,31 @@ export default function LibraryScreen({navigation}) {
   const [books, setBooks] = useState([
   ])
 
-  useEffect(() => {
+  const [inputValue, setInputValue] = useState("")
+
+  const searchBook = () => {
     axios.get(`https://www.googleapis.com/books/v1/volumes?q=${inputValue}&key=AIzaSyD0LW_Vjhj4LTF9A6WwbQLvyCuMNbhCwkY`)
     .then(res => {
       setBooks(res.data.items);
     })
-  }, [])
-
-  const [booksFiltered, setBooksFiltered] = useState([])
-  console.log(booksFiltered);
-
-  const [inputValue, setInputValue] = useState("")
-
-  const searchBook = () => {
-    setBooksFiltered(
-      books.filter(
-        res => res.volumeInfo.title.toLowerCase().includes(inputValue.toLowerCase())
-      )
-    );
   }
 
-  // const booksJSX = books.map(book => {
-  //   return (
-  //     <View>
-  //       <Text style={styles.bookTitle}>
-  //         <AntDesign name="book" size={24} color="black" />
-  //         {book.volumeInfo.title}
-  //       </Text>
-  //     </View>
-  //   )
-  // })
+  const booksJSX = books.map(books => {
+    return (
+      <View>
+        <Text style={styles.bookTitle}>
+          <AntDesign name="book" size={24} color="black" />
+          {books.volumeInfo.title}
+        </Text>
+      </View>
+    )
+  })
 
   function goToBook(book) {
     navigation.navigate('Détails du livre', {
       name: book,
     });
   }
-
-
 
   if(!fontsLoaded) {
     return <Text>Loading...</Text>
@@ -78,9 +65,13 @@ export default function LibraryScreen({navigation}) {
                   icon={{ name: 'delete', color: 'white' }}
                   buttonStyle={{ minHeight: '100%', backgroundColor: 'red' }}
               />
-          }></ListItem.Swipeable>
+          }>
+            </ListItem.Swipeable>
               <ListItem.Content>
-                <ListItem.Title style={styles.title}>{item.volumeInfo.title}</ListItem.Title>
+                <View style={styles.title}>
+                  <AntDesign name="book" size={24} color="black" />
+                  <ListItem.Title>{item.volumeInfo.title}</ListItem.Title>
+                </View>
               </ListItem.Content>
               <ListItem.Chevron />
               </ListItem>)
@@ -102,17 +93,25 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: '#fff',
   },
+  title: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginLeft: -40
+  },
   list: {
     height: 530
   },
   search: {
     flexDirection: 'row',
-    padding: 20
+    padding: 20,
+    marginHorizontal: 30
   },
   input: {
     borderWidth: 1,
     borderColor: 'black',
-    width: 250
+    width: 250,
+    textAlign: 'center',
+    fontSize: 16
   },
   bookTitle: {
     fontSize: 21,
